@@ -1,0 +1,45 @@
+{
+   "ftCashBoxID": "c094f242-91d5-4343-9c54-bce85f70d0d6",
+   "ftQueueID": "c98c5357-cb89-49ef-9ee5-bf911db6d8cb",
+   "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
+   "cbTerminalID": "T1",
+   "cbReceiptReference": "2020020119345813",
+   "cbReceiptMoment": "2020-02-01T19:35:41.133Z",
+   "cbChargeItems": [
+      {
+         "Position": 1,
+         "Quantity": 1.0,
+         "Description": "Bier 0,5 lt",
+         "Amount": 3.80,
+         "VATRate": 19.00,
+         "VATAmount": 0.61,
+         "ftChargeItemCase": 4919338167972134937,
+         "ftChargeItemCaseData": "",
+         "CostCenter": "827272",
+         "AccountNumber": "19829182",
+         "ProductGroup": "Bier",
+         "ProductNumber": "1",
+         "ProductBarcode": "",
+         "Unit": "Stk",
+         "UnitQuantity": 1,
+         "UnitPrice": 3.80,
+         "Moment": "2020-02-01T19:34:59.133Z"
+      }
+   ],
+   "cbPayItems": [
+      {
+         "Position": 1,
+         "Quantity": 1.0,
+         "Description": "Internal",
+         "Amount": 84.0,
+         "ftPayItemCase": 4919338167972134922,
+         "ftPayItemCaseData": "",
+         "AccountNumber": "19829182",
+         "CostCenter": "827272",
+         "Moment": "2020-02-01T19:34:59.133Z"
+      }
+   ],
+   "ftReceiptCase": 4919338167972134928,
+   "cbArea": "Bar Hotel Romantic",
+   "cbSettlement": ""
+}

@@ -1,0 +1,8 @@
+SEQUENCE EXAMPLE 1 - HOTEL - IMPLICIT FLOW:
+
+
+1. RESERVATION (not cancellable) - 1 night stay -> info-internal + info-order (1-1-info-internal-request.json, 1-2-info-order-request.json)
+2. CHECKIN -> FULL PAYMENT -> pos-receipt (2-pos-receipt-request.json)
+3. Consumption 1 Bier at the Bar -> room charge -> info-order (3-info-order-request.json)
+4. Purchase of Greeting Card -> payed immediately -> pos-receipt (4-pos-receipt-request.json)
+5. CHECKOUT -> Payment of consumption from 3 -> pos-receipt (5-pos-receipt-request.json)

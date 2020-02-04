@@ -1,0 +1,69 @@
+{
+    "ftCashBoxID": "c094f242-91d5-4343-9c54-bce85f70d0d6",
+    "ftQueueID": "c98c5357-cb89-49ef-9ee5-bf911db6d8cb",
+    "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
+    "cbTerminalID": "T1",
+    "cbReceiptReference": "20200130111245",
+    "cbReceiptMoment": "2020-01-30T11:12:45.133Z",
+    "cbChargeItems": [
+        {
+            "Position": 1,
+            "Quantity": 1.0,
+            "Description": "Bier 0,5 lt",
+            "Amount": 3.80,
+            "VATRate": 19.0000,
+            "ftChargeItemCase": 4919338167972134929,
+            "ftChargeItemCaseData": "",
+            "VATAmount": 0.61,
+            "CostCenter": "1",
+            "AccountNumber": "Accountnumber",
+            "ProductGroup": "Bier",
+            "ProductNumber": "101",
+            "ProductBarcode": "",
+            "Unit": "Stk",
+            "UnitQuantity": 1,
+            "UnitPrice": 3.8,
+            "Moment": "2020-01-30T11:01:01.001Z"
+        },
+        {
+            "Position": 2,
+            "Quantity": 1.0,
+            "Description": "Schnitzel",
+            "Amount": 9.20,
+            "VATRate": 7.00,
+            "ftChargeItemCase": 4919338167972134930,
+            "ftChargeItemCaseData": "",
+            "VATAmount": 0.60,
+            "CostCenter": "1",
+            "AccountNumber": "Accountnumber",
+            "ProductGroup": "Speisen",
+            "ProductNumber": "102",
+            "ProductBarcode": "",
+            "Unit": "Stk",
+            "UnitQuantity": 1,
+            "UnitPrice": 9.20,
+            "Moment": "2020-01-30T11:02:01.133Z"
+        }
+    ],
+    "cbPayItems": [
+        {
+            "Position": 1,
+            "Quantity": 1,
+            "Description": "Bar",
+            "Amount": 13.0,
+            "ftPayItemCase": 4919338167972134913,
+            "ftPayItemCaseData": "",
+            "AccountNumber": "Accountnumber",
+            "CostCenter": "Costcenter123",
+            "MoneyGroup": "BAR",
+            "MoneyNumber": "1234",
+            "Moment": "2020-01-30T11:12:43.000Z"
+        }
+],
+    "ftReceiptCase": 4919338172267102209,
+    "ftReceiptCaseData": "",
+    "cbReceiptAmount": 13.00,
+    "cbUser": "Chef",
+    "cbArea": "Tisch 01",
+    "cbSettlement": "Test1"
+}

@@ -13,8 +13,11 @@ namespace fiskaltrust.Middleware.Demo
 {
     public static class Program
     {
+        private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
+
         private static IPOS pos = null;
-        private static Guid cashBoxId;
+        private static Guid _cashBoxId;
+
         private static readonly Dictionary<string, ReceiptRequest> Examples = new Dictionary<string, ReceiptRequest>();
 
         /// <param name="cashboxId">The cashboxid for the Middleware.</param>
@@ -26,7 +29,7 @@ namespace fiskaltrust.Middleware.Demo
             {
                 if (Guid.TryParse(cashboxId, out var parsedCashBoxId))
                 {
-                    cashBoxId = parsedCashBoxId;
+                    _cashBoxId = parsedCashBoxId;
                     LoadExamples();
                     pos = GetPosClientForUrl(url);
                     await EchoAsync();
@@ -55,11 +58,12 @@ namespace fiskaltrust.Middleware.Demo
 
         private static void LoadExamples()
         {
-            foreach (var folder in Directory.GetDirectories("ReceiptExamples"))
+            foreach (var file in Directory.GetFiles(_RECEIPTEXAMPLEFOLDER, "*.json", SearchOption.AllDirectories).OrderBy(f => f))
             {
-                var content = File.ReadAllText(Path.Combine(folder, "request.json"));
+                var content = File.ReadAllText(file);
                 var req = JsonConvert.DeserializeObject<ReceiptRequest>(content);
-                Examples.Add(Path.GetFileName(folder), req);
+                req.ftCashBoxID = _cashBoxId.ToString();
+                Examples.Add(file, req);
             }
         }
 
@@ -134,7 +138,6 @@ namespace fiskaltrust.Middleware.Demo
             try
             {
                 PrintRequest(req);
-                req.ftCashBoxID = cashBoxId.ToString();
                 var resp = await pos.SignAsync(req);
                 PrintResponse(resp);
             }
