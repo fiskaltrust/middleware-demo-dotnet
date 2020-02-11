@@ -13,8 +13,7 @@ namespace fiskaltrust.Middleware.Demo
 {
     public static class Program
     {
-
-        private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
+                private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
 
         private static IPOS pos = null;
         private static Guid _cashBoxId;
