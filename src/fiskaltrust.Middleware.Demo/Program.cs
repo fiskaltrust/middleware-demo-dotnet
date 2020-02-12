@@ -13,7 +13,7 @@ namespace fiskaltrust.Middleware.Demo
 {
     public static class Program
     {
-                private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
+        private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
 
         private static IPOS pos = null;
         private static Guid _cashBoxId;
@@ -74,10 +74,16 @@ namespace fiskaltrust.Middleware.Demo
                 var uri = new Uri(url);
                 return GrpcHelper.GetClient<IPOS>(uri.Host, uri.Port);
             }
+
+            else if (url.StartsWith("rest://") || url.StartsWith("xml://"))
+            {
+                return RestHelper.GetClient(url);
+            }
+
             else
             {
 #if WCF
-                    return WcfHelper.GetClient<IPOS>(url);
+                return WcfHelper.GetClient<IPOS>(url);
 #else
                 throw new NotSupportedException($"The url {url} is not supported in .NET Core. Please provide a valid one. If you want to use WCF for connection make sure you are running the net461 version of this application.");
 #endif
