@@ -16,34 +16,50 @@ namespace fiskaltrust.Middleware.Demo
     public class RestPos : ifPOS.v1.IPOS
     {
         private string _url;
+        private string _requestType;
         public RestPos(string url)
         {
-            _url = url;
+            _url = url.StartsWith("rest://") ? url.Replace("rest://", "http://") : url.Replace("xml://", "http://");
+            _requestType = url;
         }
 
         IAsyncResult ifPOS.v0.IPOS.BeginEcho(string message, AsyncCallback callback, object state)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         IAsyncResult ifPOS.v0.IPOS.BeginJournal(long ftJournalType, long from, long to, AsyncCallback callback, object state)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         IAsyncResult ifPOS.v0.IPOS.BeginSign(ifPOS.v0.ReceiptRequest data, AsyncCallback callback, object state)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         string ifPOS.v0.IPOS.Echo(string message)
-        {
-            throw new NotImplementedException();
-        }
+        {       
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+                
+                var data = new { message = message};
+                var jsonstring = JsonConvert.SerializeObject(data);
+                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");                                            
+
+                using (var response = client.PostAsync("v0/Echo", jsonContent).Result)
+                {
+                    var reponse = response.Content.ReadAsStringAsync();
+                    return reponse.ToString();
+                }
+            }
+        }       
 
         async Task<EchoResponse> ifPOS.v1.IPOS.EchoAsync(EchoRequest message)
         {
-            if (_url.StartsWith("rest://"))
+            if (_requestType.StartsWith("rest://"))
             {
                 return await JsonEchoAsync(message);
             }
@@ -93,27 +109,38 @@ namespace fiskaltrust.Middleware.Demo
 
         string ifPOS.v0.IPOS.EndEcho(IAsyncResult result)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         Stream ifPOS.v0.IPOS.EndJournal(IAsyncResult result)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         ifPOS.v0.ReceiptResponse ifPOS.v0.IPOS.EndSign(IAsyncResult result)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         Stream ifPOS.v0.IPOS.Journal(long ftJournalType, long from, long to)
         {
-            throw new NotImplementedException();
-        }
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                using (var response = client.GetAsync(string.Format("v0/journal?type={0}&from={1}&to={2}", ftJournalType, from, to)).Result)
+                {
+                    var stream = response.Content.ReadAsStreamAsync().Result;
+                    return stream;
+                }
+            }
+        }                   
 
         IAsyncEnumerable<JournalResponse> ifPOS.v1.IPOS.JournalAsync(JournalRequest request)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("Async Streaming are not supported in Http");
         }
 
         ifPOS.v0.ReceiptResponse ifPOS.v0.IPOS.Sign(ifPOS.v0.ReceiptRequest data)
@@ -123,7 +150,7 @@ namespace fiskaltrust.Middleware.Demo
 
         async Task<ifPOS.v1.ReceiptResponse> ifPOS.v1.IPOS.SignAsync(ifPOS.v1.ReceiptRequest request)
         {
-            if (_url.StartsWith("rest://"))
+            if (_requestType.StartsWith("rest://"))
             {
                 return await JsonSignAsync(request);
             }
