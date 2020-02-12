@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace fiskaltrust.Middleware.Demo
 {
@@ -72,8 +73,8 @@ namespace fiskaltrust.Middleware.Demo
 
         private async Task<EchoResponse> XmlEchoAsync(EchoRequest message)
         {
-            var jsonstring = JsonConvert.SerializeObject(message);
-            var xmlContent = new StringContent(jsonstring, Encoding.UTF8, "application/xml");
+            var xmlString = Serialize(message);
+            var xmlContent = new StringContent(xmlString, Encoding.UTF8, "application/xml");
 
             using (var client = new HttpClient())
             {
@@ -179,8 +180,8 @@ namespace fiskaltrust.Middleware.Demo
 
         private async Task<ifPOS.v1.ReceiptResponse> XmlSignAsync(ifPOS.v1.ReceiptRequest request)
         {
-            var jsonstring = JsonConvert.SerializeObject(request);
-            var xmlContent = new StringContent(jsonstring, Encoding.UTF8, "application/xml");
+            var xmlString = Serialize(request);
+            var xmlContent = new StringContent(xmlString, Encoding.UTF8, "application/xml");
 
             using (var client = new HttpClient())
             {
@@ -193,6 +194,15 @@ namespace fiskaltrust.Middleware.Demo
                     string jsonText = JsonConvert.SerializeXNode(xml);
                     return JsonConvert.DeserializeObject<ifPOS.v1.ReceiptResponse>(jsonText);
                 }
+            }
+        }
+
+        private string Serialize(Object inputObject)
+        {
+            using (var writer = new StringWriter())
+            {
+                new XmlSerializer(inputObject.GetType()).Serialize(writer, inputObject);
+                return writer.ToString();
             }
         }
     }
