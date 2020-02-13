@@ -20,7 +20,7 @@ namespace fiskaltrust.Middleware.Demo
         private string _requestType;
         public RestPos(string url)
         {
-            _url = url.StartsWith("rest://") ? url.Replace("rest://", "http://") : url.Replace("xml://", "http://");
+            _url = url.Replace("rest://", "http://");
             _requestType = url;
         }
 
@@ -93,14 +93,14 @@ namespace fiskaltrust.Middleware.Demo
 
         private async Task<EchoResponse> JsonEchoAsync(EchoRequest message)
         {
-            var jsonstring = JsonConvert.SerializeObject(message);
+            var jsonstring = JsonConvert.SerializeObject(message);           
             var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
+                client.BaseAddress = new Uri(_url);              
 
-                using (var response = await client.PostAsync("v1/Echo", jsonContent))
+                using (var response = await client.PostAsync("v1/echo", jsonContent))
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<EchoResponse>(content.ToString());

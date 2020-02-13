@@ -75,7 +75,7 @@ namespace fiskaltrust.Middleware.Demo
                 return GrpcHelper.GetClient<IPOS>(uri.Host, uri.Port);
             }
 
-            else if (url.StartsWith("rest://") || url.StartsWith("xml://"))
+            else if (url.StartsWith("rest://"))
             {
                 return RestHelper.GetClient(url);
             }
