@@ -20,6 +20,11 @@ namespace fiskaltrust.Middleware.Demo
         private string _requestType;
         public RestPos(string url)
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings()
+            {
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
+            };
+
             _url = url.Replace("rest://", "http://");
             _requestType = url;
         }
@@ -45,9 +50,7 @@ namespace fiskaltrust.Middleware.Demo
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_url);
-                
-                var data = new { message = message};
-                var jsonstring = JsonConvert.SerializeObject(data);
+                var jsonstring = JsonConvert.SerializeObject("message");
                 var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");                                            
 
                 using (var response = client.PostAsync("v0/Echo", jsonContent).Result)
@@ -127,11 +130,12 @@ namespace fiskaltrust.Middleware.Demo
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var data = new { type = ftJournalType, from= from, to= to };
+                var jsonstring = JsonConvert.SerializeObject(data);
+                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
+                client.BaseAddress = new Uri(_url);               
 
-                using (var response = client.GetAsync(string.Format("v0/journal?type={0}&from={1}&to={2}", ftJournalType, from, to)).Result)
+                using (var response =  client.PostAsync("v0/journal", jsonContent).Result)
                 {
                     var stream = response.Content.ReadAsStreamAsync().Result;
                     return stream;

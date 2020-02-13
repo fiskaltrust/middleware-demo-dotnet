@@ -32,8 +32,8 @@ namespace fiskaltrust.Middleware.Demo
                     _cashBoxId = parsedCashBoxId;
                     LoadExamples();
                     pos = GetPosClientForUrl(url);
-                    await EchoAsync();
-
+                    
+                     await EchoAsync();
 
                     while (true)
                     {
@@ -107,7 +107,7 @@ namespace fiskaltrust.Middleware.Demo
             {
                 Console.Error.WriteLine(ex);
             }
-        }
+        }       
 
         private static async Task MenuAsync()
         {
