@@ -25,7 +25,14 @@ namespace fiskaltrust.Middleware.Demo
                 DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
             };
 
+            PrepareUrl(url);
+        }
+
+        private void PrepareUrl(string url)
+        {
+            if (url.Substring(url.Length - 1) != @"/") url+= @"/";
             _url = url.Replace("rest://", "http://");
+
             _requestType = url;
         }
 
@@ -45,21 +52,21 @@ namespace fiskaltrust.Middleware.Demo
         }
 
         string ifPOS.v0.IPOS.Echo(string message)
-        {       
-
+        {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
-                var jsonstring = JsonConvert.SerializeObject("message");
-                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");                                            
+                var jsonstring = JsonConvert.SerializeObject(message);
+                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
 
-                using (var response = client.PostAsync("v0/Echo", jsonContent).Result)
+                using (var response = client.PostAsync(Path.Combine(_url, "v0/Echo"), jsonContent).Result)
                 {
-                    var reponse = response.Content.ReadAsStringAsync();
-                    return reponse.ToString();
+                    response.EnsureSuccessStatusCode();
+
+                    var content = response.Content.ReadAsStringAsync();
+                    return content.Result.ToString();
                 }
             }
-        }       
+        }
 
         async Task<EchoResponse> ifPOS.v1.IPOS.EchoAsync(EchoRequest message)
         {
@@ -71,7 +78,6 @@ namespace fiskaltrust.Middleware.Demo
             {
                 return await XmlEchoAsync(message);
             }
-
         }
 
         private async Task<EchoResponse> XmlEchoAsync(EchoRequest message)
@@ -81,14 +87,14 @@ namespace fiskaltrust.Middleware.Demo
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
-
-                using (var response = await client.PostAsync("v1/Echo", xmlContent))
+                using (var response = await client.PostAsync(Path.Combine(_url, "v1/Echo"), xmlContent))
                 {
-                    var content = await response.Content.ReadAsStringAsync();
+                    response.EnsureSuccessStatusCode();
 
+                    var content = await response.Content.ReadAsStringAsync();
                     var xml = XElement.Parse(content);
                     string jsonText = JsonConvert.SerializeXNode(xml);
+
                     return JsonConvert.DeserializeObject<EchoResponse>(jsonText);
                 }
             }
@@ -96,15 +102,15 @@ namespace fiskaltrust.Middleware.Demo
 
         private async Task<EchoResponse> JsonEchoAsync(EchoRequest message)
         {
-            var jsonstring = JsonConvert.SerializeObject(message);           
+            var jsonstring = JsonConvert.SerializeObject(message);
             var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);              
-
-                using (var response = await client.PostAsync("v1/echo", jsonContent))
+                using (var response = await client.PostAsync(Path.Combine(_url, "v1/echo"), jsonContent))
                 {
+                    response.EnsureSuccessStatusCode();
+
                     var content = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<EchoResponse>(content.ToString());
                 }
@@ -130,18 +136,19 @@ namespace fiskaltrust.Middleware.Demo
         {
             using (var client = new HttpClient())
             {
-                var data = new { type = ftJournalType, from= from, to= to };
-                var jsonstring = JsonConvert.SerializeObject(data);
-                var jsonContent = new StringContent(jsonstring, Encoding.UTF8, "application/json");
-                client.BaseAddress = new Uri(_url);               
+                var path = string.Format("v0/journal?type={0}&from={1}&to={2}", ftJournalType, from, to);
+                client.DefaultRequestHeaders.Accept.Add(
+                   new MediaTypeWithQualityHeaderValue("application/json"));
 
-                using (var response =  client.PostAsync("v0/journal", jsonContent).Result)
+                using (var response = client.PostAsync(Path.Combine(_url, path), new StringContent("")).Result)
                 {
+                    response.EnsureSuccessStatusCode();
+
                     var stream = response.Content.ReadAsStreamAsync().Result;
                     return stream;
                 }
             }
-        }                   
+        }
 
         IAsyncEnumerable<JournalResponse> ifPOS.v1.IPOS.JournalAsync(JournalRequest request)
         {
@@ -172,10 +179,10 @@ namespace fiskaltrust.Middleware.Demo
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
-
-                using (var response = await client.PostAsync("v1/Sign", jsonContent))
+                using (var response = await client.PostAsync(Path.Combine(_url, "v1/Sign"), jsonContent))
                 {
+                    response.EnsureSuccessStatusCode();
+
                     var content = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<ifPOS.v1.ReceiptResponse>(content.ToString());
                 }
@@ -189,10 +196,10 @@ namespace fiskaltrust.Middleware.Demo
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_url);
-
-                using (var response = await client.PostAsync("v1/Sign", xmlContent))
+                using (var response = await client.PostAsync(Path.Combine(_url, "v1/Sign"), xmlContent))
                 {
+                    response.EnsureSuccessStatusCode();
+
                     var content = await response.Content.ReadAsStringAsync();
                     var xml = XElement.Parse(content);
                     string jsonText = JsonConvert.SerializeXNode(xml);

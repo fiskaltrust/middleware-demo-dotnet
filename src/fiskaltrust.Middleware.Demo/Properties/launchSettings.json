@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "fiskaltrust.Middleware.Demo": {
-      "commandName": "Project",
-      "commandLineArgs": "--cashbox-id 54c6b434-cd27-442e-b39f-0960c4ad1bda --url rest://localhost:1500/4417bfc4-cb55-4813-8914-1665cff5187e/"
-    }
-  }
-}

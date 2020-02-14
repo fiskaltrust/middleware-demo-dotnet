@@ -23,7 +23,7 @@ namespace fiskaltrust.Middleware.Demo
         /// <param name="cashboxId">The cashboxid for the Middleware.</param>
         /// <param name="url">The url that is used for sending requests to the Middleware(Default: grpc://localhost:10103).</param>
         /// <returns></returns>
-        public static async Task Main(string cashboxId, string url = "grpc://localhost:10103")
+        public static async Task Main(string cashboxId= "54c6b434-cd27-442e-b39f-0960c4ad1bda", string url = "rest://localhost:1500/4417bfc4-cb55-4813-8914-1665cff5187e")
         {
             try
             {
@@ -32,8 +32,8 @@ namespace fiskaltrust.Middleware.Demo
                     _cashBoxId = parsedCashBoxId;
                     LoadExamples();
                     pos = GetPosClientForUrl(url);
-                    
-                     await EchoAsync();
+
+                    await EchoAsync();
 
                     while (true)
                     {
