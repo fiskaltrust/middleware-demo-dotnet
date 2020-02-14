@@ -1,6 +1,6 @@
 # middleware-de-demo
 
-This is a demo application on how to call the fiskaltrust.Middleware. It contains examples using **GRPC** and **Rest** using both JSON and XML.
+This is a demo application on how to call the fiskaltrust.Middleware. It contains examples using **GRPC**, **WCF** and **Rest** using both JSON and XML.
 
 ## Getting Started
 
@@ -12,12 +12,12 @@ In order to use this demo you need three things:
 - your Cashbox Id 
 
 The demo application is available on Github under the [Releases](https://github.com/fiskaltrust/middleware-de-demo-dotnet/releases).  
-The fiskaltrust.Middleware can be downloaded from the [fiskaltrust.portal](https://portal.fiskaltrust.de/). Start it up and let it run in background to handle your requests.   
+The fiskaltrust.Middleware can be downloaded from the [fiskaltrust.portal](https://portal.fiskaltrust.de/). Start it up and let it run in the background to handle your requests.   
 The CashboxId is visible in the portal. It is also displayed in the startup console log of the middleware. 
 
 ## Running the Demo
 
-The Demo app needs two startup parameters: cashbox-id and url. The Url consists of the protocol used for communication and the location. The Middleware logs out all available endpoint as configured in the portal on start. 
+The Demo app needs two startup parameters: cashbox-id and url. The Url consists of the protocol used for communication and the location. The Middleware logs out all available endpoints as configured in the portal on start. 
 
 Startup Parameter Example:  
 --cashbox-id 54c6b434-cd27-442e-b39f-0960c4ad1bda  
