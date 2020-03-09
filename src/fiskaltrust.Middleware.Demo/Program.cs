@@ -116,7 +116,7 @@ namespace fiskaltrust.Middleware.Demo
             if(input.Trim() == "exit") {
                 System.Environment.Exit(1);
             }
-            else if ((!int.TryParse(input, out var inputInt) || inputInt > Examples.Keys.Count))
+            else if (!int.TryParse(input, out var inputInt) || inputInt > Examples.Keys.Count)
             {
                 Console.WriteLine($"\"{input}\" nicht erkannt.");
             }
