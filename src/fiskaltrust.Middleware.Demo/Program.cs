@@ -114,7 +114,7 @@ namespace fiskaltrust.Middleware.Demo
             PrintOptions();
             var input = Console.ReadLine();
             if(input.Trim() == "exit") {
-                System.Environment.Exit(1);
+                System.Environment.Exit(0);
             }
             else if (!int.TryParse(input, out var inputInt) || inputInt > Examples.Keys.Count)
             {
