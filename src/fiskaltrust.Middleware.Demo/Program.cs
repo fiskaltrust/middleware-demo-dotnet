@@ -36,8 +36,8 @@ namespace fiskaltrust.Middleware.Demo
                     _cashBoxId = parsedCashBoxId;
                     LoadExamples();
                     pos = GetPosClientForUrl(url);
-                    await EchoAsync();
 
+                    await EchoAsync();
 
                     while (true)
                     {
@@ -111,13 +111,16 @@ namespace fiskaltrust.Middleware.Demo
             {
                 Console.Error.WriteLine(ex);
             }
-        }
+        }       
 
         private static async Task MenuAsync()
         {
             PrintOptions();
             var input = Console.ReadLine();
-            if (!int.TryParse(input, out var inputInt))
+            if(input.Trim() == "exit") {
+                System.Environment.Exit(0);
+            }
+            else if (!int.TryParse(input, out var inputInt))
             {
                 Console.WriteLine($"\"{input}\" nicht erkannt.");
             }
