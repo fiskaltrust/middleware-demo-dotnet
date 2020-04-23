@@ -5,6 +5,7 @@
     <TargetFrameworks>netcoreapp3.1;net461</TargetFrameworks>
     <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
     <NoWarn>1701;1702;1591</NoWarn>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">

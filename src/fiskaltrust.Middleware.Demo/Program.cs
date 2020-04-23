@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using fiskaltrust.ifPOS.v1;
 using fiskaltrust.Middleware.Demo.Helpers;
@@ -16,9 +17,11 @@ namespace fiskaltrust.Middleware.Demo
         private const string _RECEIPTEXAMPLEFOLDER = "ReceiptExamples";
 
         private static IPOS pos = null;
+        private static string _url;
         private static Guid _cashBoxId;
 
         private static readonly Dictionary<string, ReceiptRequest> Examples = new Dictionary<string, ReceiptRequest>();
+        private static readonly Dictionary<int, int> JournalOptions = new Dictionary<int, int>();
 
         /// <param name="cashboxId">The cashboxid for the Middleware.</param>
         /// <param name="url">The url that is used for sending requests to the Middleware(Default: grpc://localhost:10103).</param>
@@ -29,6 +32,7 @@ namespace fiskaltrust.Middleware.Demo
             {
                 if (Guid.TryParse(cashboxId, out var parsedCashBoxId))
                 {
+                    _url = url;
                     _cashBoxId = parsedCashBoxId;
                     LoadExamples();
                     pos = GetPosClientForUrl(url);
@@ -74,10 +78,16 @@ namespace fiskaltrust.Middleware.Demo
                 var uri = new Uri(url);
                 return GrpcHelper.GetClient<IPOS>(uri.Host, uri.Port);
             }
+
+            else if (url.StartsWith("rest://") || url.StartsWith("xml://"))
+            {
+                return new RestPos(url);
+            }
+
             else
             {
 #if WCF
-                    return WcfHelper.GetClient<IPOS>(url);
+                return WcfHelper.GetClient<IPOS>(url);
 #else
                 throw new NotSupportedException($"The url {url} is not supported in .NET Core. Please provide a valid one. If you want to use WCF for connection make sure you are running the net461 version of this application.");
 #endif
@@ -107,9 +117,19 @@ namespace fiskaltrust.Middleware.Demo
         {
             PrintOptions();
             var input = Console.ReadLine();
-            if (!int.TryParse(input, out var inputInt) || inputInt > Examples.Keys.Count)
+            if (!int.TryParse(input, out var inputInt))
             {
                 Console.WriteLine($"\"{input}\" nicht erkannt.");
+            }
+            else if (inputInt > Examples.Keys.Count - 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Please select a Journal:");
+                Console.WriteLine($"<1>: Journal 0x0000000000000000 Version information");
+                Console.WriteLine($"<2>: Journal 0x0000000000000001 ActionJournal in internal format");
+                Console.WriteLine($"<3>: Journal 0x0000000000000002 ReceiptJournal in internal format");
+                Console.WriteLine($"<4>: Journal 0x0000000000000003 QueueItemJournal in internal format");
+                await ExecuteJournalAsync(Console.ReadLine());
             }
             else
             {
@@ -122,14 +142,55 @@ namespace fiskaltrust.Middleware.Demo
             await MenuAsync();
         }
 
+        private static async Task ExecuteJournalAsync(string input)
+        {
+            Console.Clear();
+            if (!int.TryParse(input, out var inputInt))
+            {
+                Console.WriteLine($"\"{input}\" nicht erkannt.");
+            }
+            else if (inputInt <= 4)
+            {
+                var journal = await GetJournalAsync(inputInt);
+                var result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
+                Console.WriteLine(result);
+                Console.WriteLine("Please press enter to continue.");
+                Console.ReadLine();
+            }
+        }
+
+        private static async Task<string> GetJournalAsync(int inputInt)
+        {
+            if (_url.StartsWith("grpc"))
+            {
+                using var memoryStream = new MemoryStream();
+                await foreach (var chunk in pos.JournalAsync(new JournalRequest
+                {
+                    ftJournalType = inputInt
+                }))
+                {
+                    var write = chunk.Chunk.ToArray();
+                    await memoryStream.WriteAsync(write, 0, write.Length);
+                }
+                return Encoding.UTF8.GetString(memoryStream.ToArray());
+            }
+            else
+            {
+                using var streamReader = new StreamReader(pos.Journal(inputInt, 0, int.MaxValue));
+                return streamReader.ReadToEnd();
+            }
+        }
+
         private static void PrintOptions()
         {
             var i = 1;
             foreach (var example in Examples)
             {
-                Console.WriteLine($"{i}: {example.Key} - ({example.Value.ftReceiptCase:X})");
+                Console.WriteLine($"<{i}>: {example.Key} - ({example.Value.ftReceiptCase:X})");
                 i++;
             }
+
+            Console.WriteLine($"<{i}>: Journal");
             Console.WriteLine("exit: Program beenden");
         }
 
