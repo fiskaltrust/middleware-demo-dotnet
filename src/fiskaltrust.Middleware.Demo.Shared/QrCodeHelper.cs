@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using fiskaltrust.ifPOS.v1;
 
-namespace fiskaltrust.Middleware.Demo
+namespace fiskaltrust.Middleware.Demo.Shared
 {
     public static class QrCodeHelper
     {
-        public static void PrintQrCode(SignaturItem signaturItem)
+        public static void PrintQrCode(string data)
         {
             var width = 128;
-            var ft = QRTextChars(signaturItem.Data, width, true);
+            var ft = QRTextChars(data, width, true);
 
             var line = 0;
-            Console.WriteLine(signaturItem.Data);
+            Console.WriteLine(data);
             Console.WriteLine("============================================================");
             while (line * width < ft.Length)
             {
@@ -34,7 +33,7 @@ namespace fiskaltrust.Middleware.Demo
                 {
                     for (var i = 0; i < width; i++)
                     {
-                        var pos = (line * width) + i;
+                        var pos = line * width + i;
                         if (bytes[pos] == 0xDB)
                         {
                             chars[pos] = (char)0x2588;
