@@ -11,6 +11,12 @@ namespace fiskaltrust.Middleware.Demo.Http
         private const string RECEIPT_EXAMPLES_DIR_DE = "ReceiptExamples/de";
         private const string RECEIPT_EXAMPLES_DIR_FR = "ReceiptExamples/fr";
 
+        /// <summary>A demo application to demonstrate how to connect to the fiskaltrust.Middleware via HTTP</summary>
+        /// <remarks>
+        /// This application uses the fiskaltrust.Middleware.Interface.Http client package that encapsulates communication.
+        /// Examples are loaded from the ReceiptExamples directory. 
+        /// Currently, the v1 interface is not supported for Austrian and French instances. Hence, v0 is used for them in this example, while the German example uses v1.
+        /// </remarks>
         /// <param name="url">The URL that is used to connect to the Middleware.</param>
         /// <param name="cashboxId">The cashboxid for the Middleware.</param>
         /// <param name="accessToken">The access token. Only used when connecting to SignaturCloud.</param>
@@ -29,15 +35,18 @@ namespace fiskaltrust.Middleware.Demo.Http
                 if (market == Market.Undefined)
                     market = ConsoleHelper.ReadFromConsole<Market>("Market (AT, DE or FR)", false);
 
-                var receiptExampleDir = market switch
+                switch (market)
                 {
-                    Market.AT => RECEIPT_EXAMPLES_DIR_AT,
-                    Market.DE => RECEIPT_EXAMPLES_DIR_DE,
-                    Market.FR => RECEIPT_EXAMPLES_DIR_FR,
-                    _ => throw new ArgumentException(market.ToString(), nameof(market)),
-                };
-
-                await Demo.RunAsync(url, cashboxId, communicationType, accessToken, receiptExampleDir);
+                    case Market.AT:
+                        DemoV0.Run(url, cashboxId, communicationType, accessToken, RECEIPT_EXAMPLES_DIR_AT);
+                        break;
+                    case Market.FR:
+                        DemoV0.Run(url, cashboxId, communicationType, accessToken, RECEIPT_EXAMPLES_DIR_FR);
+                        break;
+                    case Market.DE:
+                        await Demo.RunAsync(url, cashboxId, communicationType, accessToken, RECEIPT_EXAMPLES_DIR_DE);
+                        break;
+                }
             }
             catch (Exception ex)
             {

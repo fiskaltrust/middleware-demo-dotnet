@@ -8,6 +8,12 @@ namespace fiskaltrust.Middleware.Demo.Grpc
     {
         private const string RECEIPT_EXAMPLES_DIR_DE = "ReceiptExamples/de";
 
+        /// <summary>A demo application to demonstrate how to connect to the fiskaltrust.Middleware via HTTP</summary>
+        /// <remarks>
+        /// This application uses the fiskaltrust.Middleware.Interface.Http client package that encapsulates communication.
+        /// Examples are loaded from the ReceiptExamples directory. 
+        /// gRPC is only supported in v1, which is not yet implemented for Austrian and French queues. This example is thus only supporting German instances.
+        /// </remarks>
         /// <param name="url">The URL that is used to connect to the Middleware.</param>
         /// <param name="cashboxId">The cashboxid for the Middleware.</param>
         /// <param name="market">The country that will be used to select the respective receipt examples. Either AT, DE or FR.</param>
