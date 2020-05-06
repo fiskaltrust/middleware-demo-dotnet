@@ -24,13 +24,36 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    
-- task: CopyFiles@2
+
+- task: ArchiveFiles@2
+  displayName: 'Archive fiskaltrust.Middleware.Demo.Grpc'
   inputs:
-    contents: '**/bin/$(buildConfiguration)/**'
-    targetFolder: $(Build.ArtifactStagingDirectory)
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Grpc/bin/$(buildConfiguration)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Grpc.zip'
+    replaceExistingArchive: true
+
+- task: ArchiveFiles@2
+  displayName: 'Archive fiskaltrust.Middleware.Demo.Http'
+  inputs:
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Http/bin/$(buildConfiguration)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Http.zip'
+    replaceExistingArchive: true
+
+- task: ArchiveFiles@2
+  displayName: 'Archive fiskaltrust.Middleware.Demo.Soap'
+  inputs:
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Soap/bin/$(buildConfiguration)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Soap.zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
+    FileCopyOptions: 
