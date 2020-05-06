@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using fiskaltrust.Middleware.Demo.Shared;
-using fiskaltrust.Middleware.Interface.Http;
+using fiskaltrust.Middleware.Interface.Client.Http;
 
 namespace fiskaltrust.Middleware.Demo.Http
 {

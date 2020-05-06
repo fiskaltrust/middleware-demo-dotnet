@@ -1,6 +1,6 @@
 ﻿using fiskaltrust.ifPOS.v0;
 using fiskaltrust.Middleware.Demo.Shared;
-using fiskaltrust.Middleware.Interface.Http;
+using fiskaltrust.Middleware.Interface.Client.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,13 @@ namespace fiskaltrust.Middleware.Demo.Http
         public static void Run(string url, Guid cashboxId, HttpCommunicationType communicationType, string accessToken, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = new HttpPosFactory().CreatePosAsync(new HttpPosOptions { Url = url, CommunicationType = communicationType, CashboxId = cashboxId, AccessToken = accessToken });
+            _pos = HttpPosFactory.CreatePosAsync(new HttpPosOptions 
+            { 
+                Url = new Uri(url), 
+                CommunicationType = communicationType, 
+                CashboxId = cashboxId, 
+                AccessToken = accessToken 
+            }).Result;
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
             ExecuteEcho("Test");

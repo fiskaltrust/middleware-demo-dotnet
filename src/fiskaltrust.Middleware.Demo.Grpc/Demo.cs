@@ -1,6 +1,6 @@
 ﻿using fiskaltrust.ifPOS.v1;
 using fiskaltrust.Middleware.Demo.Shared;
-using fiskaltrust.Middleware.Interface.Grpc;
+using fiskaltrust.Middleware.Interface.Client.Grpc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace fiskaltrust.Middleware.Demo.Grpc
         public static async Task RunAsync(string url, Guid cashboxId, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = new GrpcPosFactory().CreatePosAsync(new GrpcPosOptions { Url = url });
+            _pos = await GrpcPosFactory.CreatePosAsync(new GrpcPosOptions { Url = new Uri(url) });
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
             await ExecuteEchoAsync("Test");
