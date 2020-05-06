@@ -28,7 +28,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Archive fiskaltrust.Middleware.Demo.Grpc'
   inputs:
-    rootFolderOrFile: '**/fiskaltrust.Middleware.Demo.Grpc/bin/$(buildConfiguration)'
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Grpc/bin/$(buildConfiguration)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Grpc.zip'
@@ -37,7 +37,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Archive fiskaltrust.Middleware.Demo.Http'
   inputs:
-    rootFolderOrFile: '**/fiskaltrust.Middleware.Demo.Http/bin/$(buildConfiguration)'
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Http/bin/$(buildConfiguration)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Http.zip'
@@ -46,7 +46,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Archive fiskaltrust.Middleware.Demo.Soap'
   inputs:
-    rootFolderOrFile: '**/fiskaltrust.Middleware.Demo.Soap/bin/$(buildConfiguration)'
+    rootFolderOrFile: 'src/fiskaltrust.Middleware.Demo.Soap/bin/$(buildConfiguration)'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/fiskaltrust.Middleware.Demo.Soap.zip'
