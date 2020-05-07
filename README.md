@@ -1,4 +1,4 @@
-# fiskaltrust.Middleware demo
+# fiskaltrust.Middleware demo (C#)
 Demo applications that demonstrate how to call the fiskaltrust.Middleware from .NET/C#. This repository contains examples for **GRPC**, **WCF** and **REST** based communication, using both JSON and XML.
 
 ## Getting Started
@@ -6,10 +6,10 @@ Demo applications that demonstrate how to call the fiskaltrust.Middleware from .
 ### Prerequisites
 In order to use this demo application, the following prerequisites are required:
 - *The demo application*: Either clone and run locally, or download the latest binaries from [Releases](https://github.com/fiskaltrust/middleware-de-demo-dotnet/releases)
-- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it up and let it run in the background to handle your requests.
+- *The fiskaltrust.Middleware* running on your machine, which can be configured and downloaded via the fiskaltrust.Portal ([AT](https://portal.fiskaltrust.at), [DE](https://portal.fiskaltrust.de), [FR](https://portal.fiskaltrust.fr)). Start it (either by running it as a service, or with the `test.cmd` file), and let it run in the background to handle your requests.
 - *Your Cashbox Id* is visible in the portal. It is also displayed in the startup console log of the Middleware. 
 
-This example used the fiskaltrust.interface and the fiskaltrust.Middleware communication helper packages, which provide a convenient way to implement the middleware interface from .NET. These packages can be downloaded directly from [NuGet](https://www.nuget.org/profiles/fiskaltrust).
+This example uses the fiskaltrust.interface and the fiskaltrust.Middleware communication helper packages, which provide a convenient way to implement the middleware interface from .NET. These packages can be downloaded directly from [NuGet](https://www.nuget.org/profiles/fiskaltrust).
 
 ### Running the Demo
 The Demo app needs three startup parameters: `cashbox-id`, `url` and `market`. The Middleware logs out all available endpoints (i.e. the URLs) as configured in the portal on startup. 
@@ -24,10 +24,11 @@ fiskaltrust.Middleware.Demo.Grpc.exe --cashbox-id "54c6b434-cd27-442e-b39f-0960c
 
 If a parameter is not passed, the user will be prompted at startup.
 
-1. The demo will show up a list of available demo receipts. Before execute any receipt, make sure that the SCU is initialized, by calling the *initial-operation-receipt*/the *start receipt*. 
+1. The demo will show up a list of available demo receipts, pulled from the `src/fiskaltrust.Middleware.Demo.Shared/ReceiptExamples` folder. Before executing any receipt, make sure that the SCU is initialized, by calling the *initial-operation-receipt*/the *start receipt*. 
 2. To execute a receipt against the middleware, select it by its leading number and press Enter.
-3. This will print the example and call it on the middleware with your defined endpoint. After the middleware processed the receipt, it will return the result back to the demo app, which prints it to the console. 
-4. To go back to the list of receipts press a random key.
+3. This will print the example to the command line and send it to the _Sign_ endpoint of the Middleware. After the receipt is processed, the Middleware will return the result back to the demo app, which again prints it to the console. 
+4. Alternatively, a Journal request can also be executed. This is used to export different types of data from the middleware - system information, processed receipts, etc.
+5. To go back to the command list, press enter
 
 ## Documentation
 The full documentation for the interface can be found on https://docs.fiskaltrust.cloud. It is activeliy maintained and developed in our [interface-doc repository](https://github.com/fiskaltrust/interface-doc). 
