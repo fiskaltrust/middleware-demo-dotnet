@@ -21,7 +21,7 @@ namespace fiskaltrust.Middleware.Demo.Http
         public static async Task RunAsync(string url, Guid cashboxId, HttpCommunicationType communicationType, string accessToken, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = await HttpPosFactory.CreatePosAsync(new HttpPosOptions 
+            _pos = await HttpPosFactory.CreatePosAsync(new HttpPosClientOptions
             { 
                 Url = new Uri(url), 
                 CommunicationType = communicationType, 

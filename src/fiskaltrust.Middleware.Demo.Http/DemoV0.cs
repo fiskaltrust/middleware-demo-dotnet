@@ -19,7 +19,7 @@ namespace fiskaltrust.Middleware.Demo.Http
         public static void Run(string url, Guid cashboxId, HttpCommunicationType communicationType, string accessToken, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = HttpPosFactory.CreatePosAsync(new HttpPosOptions 
+            _pos = HttpPosFactory.CreatePosAsync(new HttpPosClientOptions 
             { 
                 Url = new Uri(url), 
                 CommunicationType = communicationType, 

@@ -1,6 +1,6 @@
 ﻿using fiskaltrust.ifPOS.v1;
 using fiskaltrust.Middleware.Demo.Shared;
-using fiskaltrust.Middleware.Interface.Client.Shared;
+using fiskaltrust.Middleware.Interface.Client;
 using fiskaltrust.Middleware.Interface.Client.Soap;
 using Newtonsoft.Json;
 using System;
@@ -21,7 +21,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
         public static async Task RunAsync(string url, Guid cashboxId, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = await SoapPosFactory.CreatePosAsync(new PosOptions { Url = new Uri(url) });
+            _pos = await SoapPosFactory.CreatePosAsync(new ClientOptions { Url = new Uri(url) });
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
             await ExecuteEchoAsync("Test");
