@@ -1,6 +1,7 @@
 ﻿using fiskaltrust.ifPOS.v1;
 using fiskaltrust.Middleware.Demo.Shared;
 using fiskaltrust.Middleware.Interface.Client.Grpc;
+using Grpc.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -73,10 +74,14 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                 var resp = await _pos.SignAsync(req);
                 ConsoleHelper.PrintResponse(resp);
             }
-            catch (Exception ex)
+            catch (RpcException ex)
             {
                 Console.Error.WriteLine("An error occured when trying to send the request.");
                 Console.Error.WriteLine(ex);
+                foreach (var entry in ex.Trailers)
+                {
+                    Console.Error.WriteLine($"[{entry.Key}] {entry.Value}");
+                }
             }
         }
 
