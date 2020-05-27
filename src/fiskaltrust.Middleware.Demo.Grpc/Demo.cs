@@ -141,22 +141,22 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                 var write = chunk.Chunk.ToArray();
                 await memoryStream.WriteAsync(write, 0, write.Length);
             }
-            
+
             return Encoding.UTF8.GetString(memoryStream.ToArray());
         }
 
         private static async Task<string> SaveJournalToFileAsync(long inputInt)
         {
             var fileName = $"exportTSE_{DateTime.Now.Ticks}.tar";
-            using var fileStream = File.OpenWrite(fileName);
-            await foreach (var chunk in _pos.JournalAsync(new JournalRequest
-            {
-                ftJournalType = inputInt
-            }))
-            {
-                var write = chunk.Chunk.ToArray();
-                await fileStream.WriteAsync(write, 0, write.Length);
-            }
+                using var fileStream = File.OpenWrite(fileName);
+                await foreach (var chunk in _pos.JournalAsync(new JournalRequest
+                {
+                    ftJournalType = inputInt
+                }))
+                {
+                    var write = chunk.Chunk.ToArray();
+                    await fileStream.WriteAsync(write, 0, write.Length);
+                }
             return fileName;
         }
 
