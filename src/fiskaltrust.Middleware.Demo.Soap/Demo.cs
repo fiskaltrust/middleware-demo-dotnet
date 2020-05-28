@@ -21,7 +21,8 @@ namespace fiskaltrust.Middleware.Demo.Soap
         public static async Task RunAsync(string url, Guid cashboxId, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
-            _pos = await SoapPosFactory.CreatePosAsync(new ClientOptions { Url = new Uri(url) });
+            var retryOptions = new RetryPolicyOptions { ClientTimeout = TimeSpan.FromSeconds(90), DelayBetweenRetries = TimeSpan.FromSeconds(5), Retries = 3 };
+            _pos = await SoapPosFactory.CreatePosAsync(new ClientOptions { Url = new Uri(url), RetryPolicyOptions = retryOptions  });
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
             await ExecuteEchoAsync("Test");
@@ -116,7 +117,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
-            else if (inputInt > _examples.Keys.Count - 1)
+            else if (inputInt > _examples.Keys.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Please select a Journal:");

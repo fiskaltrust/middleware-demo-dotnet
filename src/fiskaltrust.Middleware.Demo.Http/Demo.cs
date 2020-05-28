@@ -1,5 +1,6 @@
 ﻿using fiskaltrust.ifPOS.v1;
 using fiskaltrust.Middleware.Demo.Shared;
+using fiskaltrust.Middleware.Interface.Client;
 using fiskaltrust.Middleware.Interface.Client.Http;
 using Newtonsoft.Json;
 using System;
@@ -21,12 +22,14 @@ namespace fiskaltrust.Middleware.Demo.Http
         public static async Task RunAsync(string url, Guid cashboxId, HttpCommunicationType communicationType, string accessToken, string receiptExampleDirectory)
         {
             _cashBoxId = cashboxId;
+            var retryOptions = new RetryPolicyOptions { ClientTimeout = TimeSpan.FromSeconds(90), DelayBetweenRetries = TimeSpan.FromSeconds(5), Retries = 3 };
             _pos = await HttpPosFactory.CreatePosAsync(new HttpPosClientOptions
-            { 
-                Url = new Uri(url), 
-                CommunicationType = communicationType, 
-                CashboxId = cashboxId, 
-                AccessToken = accessToken 
+            {
+                Url = new Uri(url),
+                CommunicationType = communicationType,
+                CashboxId = cashboxId,
+                AccessToken = accessToken,
+                RetryPolicyOptions = retryOptions
             });
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
@@ -122,7 +125,7 @@ namespace fiskaltrust.Middleware.Demo.Http
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
-            else if (inputInt > _examples.Keys.Count - 1)
+            else if (inputInt > _examples.Keys.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Please select a Journal:");
