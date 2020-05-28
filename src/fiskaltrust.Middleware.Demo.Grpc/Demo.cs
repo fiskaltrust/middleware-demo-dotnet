@@ -2,6 +2,7 @@
 using fiskaltrust.Middleware.Demo.Shared;
 using fiskaltrust.Middleware.Interface.Client;
 using fiskaltrust.Middleware.Interface.Client.Grpc;
+using Grpc.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -75,10 +76,14 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                 var resp = await _pos.SignAsync(req);
                 ConsoleHelper.PrintResponse(resp);
             }
-            catch (Exception ex)
+            catch (RpcException ex)
             {
                 Console.Error.WriteLine("An error occured when trying to send the request.");
                 Console.Error.WriteLine(ex);
+                foreach (var entry in ex.Trailers)
+                {
+                    Console.Error.WriteLine($"[{entry.Key}] {entry.Value}");
+                }
             }
         }
 
@@ -118,15 +123,21 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                         break;
                     case 8:
                         journal = await GetJournalAsync(0x4445000000000000);
-                        result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
-                        Console.WriteLine(result);
+                        if (!string.IsNullOrEmpty(journal))
+                        {
+                            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
+                            Console.WriteLine(result);
+                        }
                         break;
                     case 9:
                         var fileName = await SaveJournalToFileAsync(0x4445000000000001);
-                        Console.WriteLine($"Successfully exported TAR file to -> {fileName}");
+                        if (!string.IsNullOrEmpty(fileName))
+                        {
+                            Console.WriteLine($"Successfully exported TAR file to -> {fileName}");
+                        }
                         break;
                 }
-        
+
                 Console.WriteLine("Please press enter to continue.");
                 Console.ReadLine();
             }
@@ -134,32 +145,58 @@ namespace fiskaltrust.Middleware.Demo.Grpc
 
         private static async Task<string> GetJournalAsync(long inputInt)
         {
-            using var memoryStream = new MemoryStream();
-            await foreach (var chunk in _pos.JournalAsync(new JournalRequest
+            try
             {
-                ftJournalType = inputInt
-            }))
-            {
-                var write = chunk.Chunk.ToArray();
-                await memoryStream.WriteAsync(write, 0, write.Length);
+                using var memoryStream = new MemoryStream();
+                await foreach (var chunk in _pos.JournalAsync(new JournalRequest
+                {
+                    ftJournalType = inputInt
+                }))
+                {
+                    var write = chunk.Chunk.ToArray();
+                    await memoryStream.WriteAsync(write, 0, write.Length);
+                }
+
+                return Encoding.UTF8.GetString(memoryStream.ToArray());
             }
-            
-            return Encoding.UTF8.GetString(memoryStream.ToArray());
+            catch (RpcException ex)
+            {
+                Console.Error.WriteLine("An error occured when trying to send the request.");
+                Console.Error.WriteLine(ex);
+                foreach (var entry in ex.Trailers)
+                {
+                    Console.Error.WriteLine($"[{entry.Key}] {entry.Value}");
+                }
+                return "";
+            }
         }
 
         private static async Task<string> SaveJournalToFileAsync(long inputInt)
         {
-            var fileName = $"exportTSE_{DateTime.Now.Ticks}.tar";
-            using var fileStream = File.OpenWrite(fileName);
-            await foreach (var chunk in _pos.JournalAsync(new JournalRequest
+            try
             {
-                ftJournalType = inputInt
-            }))
-            {
-                var write = chunk.Chunk.ToArray();
-                await fileStream.WriteAsync(write, 0, write.Length);
+                var fileName = $"exportTSE_{DateTime.Now.Ticks}.tar";
+                using var fileStream = File.OpenWrite(fileName);
+                await foreach (var chunk in _pos.JournalAsync(new JournalRequest
+                {
+                    ftJournalType = inputInt
+                }))
+                {
+                    var write = chunk.Chunk.ToArray();
+                    await fileStream.WriteAsync(write, 0, write.Length);
+                }
+                return fileName;
             }
-            return fileName;
+            catch (RpcException ex)
+            {
+                Console.Error.WriteLine("An error occured when trying to send the request.");
+                Console.Error.WriteLine(ex);
+                foreach (var entry in ex.Trailers)
+                {
+                    Console.Error.WriteLine($"[{entry.Key}] {entry.Value}");
+                }
+                return "";
+            }
         }
 
         private static async Task MenuAsync()
