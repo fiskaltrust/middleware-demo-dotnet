@@ -117,7 +117,7 @@ namespace fiskaltrust.Middleware.Demo.Http
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
-            else if (inputInt > _examples.Keys.Count - 1)
+            else if (inputInt > _examples.Keys.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Please select a Journal:");

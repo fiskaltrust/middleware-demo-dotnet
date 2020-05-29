@@ -28,7 +28,11 @@ namespace fiskaltrust.Middleware.Demo.Soap
 
             while (true)
             {
-                await MenuAsync();
+                if (await MenuAsync() == false)
+                {
+                    //reconnect
+                    _pos = await SoapPosFactory.CreatePosAsync(new PosOptions { Url = new Uri(url) });
+                }
             }
         }
 
@@ -65,18 +69,20 @@ namespace fiskaltrust.Middleware.Demo.Soap
             }
         }
 
-        private static async Task ExecuteSignAsync(ReceiptRequest req)
+        private static async Task<bool> ExecuteSignAsync(ReceiptRequest req)
         {
             try
             {
                 ConsoleHelper.PrintRequest(req);
                 var resp = await _pos.SignAsync(req);
                 ConsoleHelper.PrintResponse(resp);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine("An error occured when trying to send the request.");
                 Console.Error.WriteLine(ex);
+                return false;
             }
         }
 
@@ -103,7 +109,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
             return await streamReader.ReadToEndAsync();
         }
 
-        private static async Task MenuAsync()
+        private static async Task<bool> MenuAsync()
         {
             Console.WriteLine();
             PrintOptions();
@@ -116,7 +122,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
-            else if (inputInt > _examples.Keys.Count - 1)
+            else if (inputInt > _examples.Keys.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Please select a Journal:");
@@ -129,12 +135,14 @@ namespace fiskaltrust.Middleware.Demo.Soap
             else
             {
                 var req = _examples.Values.ToList()[inputInt - 1];
-                await ExecuteSignAsync(req);
+                var success = await ExecuteSignAsync(req);
                 Console.WriteLine("Please press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
+                return success;
             }
-            await MenuAsync();
+            //await MenuAsync();
+            return true;
         }
 
         private static void PrintOptions()
