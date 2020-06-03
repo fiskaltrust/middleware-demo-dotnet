@@ -30,11 +30,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
 
             while (true)
             {
-                if (await MenuAsync() == false)
-                {
-                    //reconnect
-                    _pos = await SoapPosFactory.CreatePosAsync(new PosOptions { Url = new Uri(url) });
-                }
+                await MenuAsync();
             }
         }
 
