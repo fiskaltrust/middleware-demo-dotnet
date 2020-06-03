@@ -90,7 +90,7 @@ namespace fiskaltrust.Middleware.Demo.Grpc
         private static async Task ExecuteJournalAsync(string input)
         {
             Console.Clear();
-            if (!int.TryParse(input, out var inputInt) || inputInt > 9)
+            if (!int.TryParse(input, out var inputInt) || inputInt > 10)
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
@@ -134,6 +134,14 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                         if (!string.IsNullOrEmpty(fileName))
                         {
                             Console.WriteLine($"Successfully exported TAR file to -> {fileName}");
+                        }
+                        break;
+                    case 10:
+                        journal = await GetJournalAsync(0xFF);
+                        if (!string.IsNullOrEmpty(journal))
+                        {
+                            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
+                            Console.WriteLine(result);
                         }
                         break;
                 }
