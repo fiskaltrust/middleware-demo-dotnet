@@ -28,7 +28,10 @@ namespace fiskaltrust.Middleware.Demo.Grpc
 
             while (true)
             {
-                await MenuAsync();
+                if (await MenuAsync() == false)
+                {
+                    _pos = await GrpcPosFactory.CreatePosAsync(new GrpcPosOptions { Url = new Uri(url) });
+                }
             }
         }
 
@@ -65,18 +68,20 @@ namespace fiskaltrust.Middleware.Demo.Grpc
             }
         }
 
-        private static async Task ExecuteSignAsync(ReceiptRequest req)
+        private static async Task<bool> ExecuteSignAsync(ReceiptRequest req)
         {
             try
             {
                 ConsoleHelper.PrintRequest(req);
                 var resp = await _pos.SignAsync(req);
                 ConsoleHelper.PrintResponse(resp);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine("An error occured when trying to send the request.");
                 Console.Error.WriteLine(ex);
+                return false;
             }
         }
 
@@ -108,11 +113,11 @@ namespace fiskaltrust.Middleware.Demo.Grpc
                 var write = chunk.Chunk.ToArray();
                 await memoryStream.WriteAsync(write, 0, write.Length);
             }
-            
+
             return Encoding.UTF8.GetString(memoryStream.ToArray());
         }
 
-        private static async Task MenuAsync()
+        private static async Task<bool> MenuAsync()
         {
             Console.WriteLine();
             PrintOptions();
@@ -125,7 +130,7 @@ namespace fiskaltrust.Middleware.Demo.Grpc
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
-            else if (inputInt > _examples.Keys.Count - 1)
+            else if (inputInt > _examples.Keys.Count)
             {
                 Console.Clear();
                 Console.WriteLine("Please select a Journal:");
@@ -138,12 +143,13 @@ namespace fiskaltrust.Middleware.Demo.Grpc
             else
             {
                 var req = _examples.Values.ToList()[inputInt - 1];
-                await ExecuteSignAsync(req);
+                var success = await ExecuteSignAsync(req);
                 Console.WriteLine("Please press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
+                return success;
             }
-            await MenuAsync();
+            return true;
         }
 
         private static void PrintOptions()
