@@ -238,12 +238,13 @@ namespace fiskaltrust.Middleware.Demo.Grpc
             else
             {
                 var req = _examples.Values.ToList()[inputInt - 1];
-                await ExecuteSignAsync(req);
+                var success = await ExecuteSignAsync(req);
                 Console.WriteLine("Please press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
+                return success;
             }
-            await MenuAsync();
+            return true;
         }
 
         private static void PrintOptions()
