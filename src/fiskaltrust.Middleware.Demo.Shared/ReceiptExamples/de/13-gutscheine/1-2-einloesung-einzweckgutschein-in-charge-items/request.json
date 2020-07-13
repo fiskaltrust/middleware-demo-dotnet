@@ -2,7 +2,7 @@
     "ftCashBoxID": "{{cashbox_id}}",
     "cbTerminalID": "T1",
     "cbReceiptReference":"RR223",
-    "cbReceiptMoment":"01/01/1970",
+    "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
     "cbChargeItems":[
         {
          "Quantity":1.0,
@@ -10,7 +10,7 @@
          "Amount":15.00,
          "VATRate":19.00,
          "ftChargeItemCase":4919338167972134929,
-         "Moment":"01/01/1970"
+         "Moment":"1970-01-01T00:00:00.000Z"
       },
       {
          "Quantity":1.0,
@@ -19,7 +19,7 @@
          "VATRate":19.00,
          "ftChargeItemCase":4919338167972135017,
          "ftChargeItemCaseData":"{\"VoucherNr\":\"UAUA91829182HH\"}",
-         "Moment":"01/01/1970"
+         "Moment":"1970-01-01T00:00:00.000Z"
       }
     ],
     "cbPayItems":[], 

@@ -3,7 +3,7 @@
     "ftPosSystemId": "b3dc6573-96d9-e611-80f7-5065f38adae1",
     "cbTerminalID": "1",
     "cbReceiptReference": "TR-2992",
-    "cbReceiptMoment": "01/01/1970",
+    "cbReceiptMoment": "1970-01-01T00:00:00.000Z",
     "cbChargeItems": [
         {
             "Quantity": 1.0,
@@ -48,7 +48,7 @@
             "CostCenter": "1",
             "MoneyGroup": "1",
             "MoneyNumber": "",
-            "Moment":"01/01/1970"
+            "Moment":"1970-01-01T00:00:00.000Z"
         }
     ],
     "ftReceiptCase": 4919338172267102209,

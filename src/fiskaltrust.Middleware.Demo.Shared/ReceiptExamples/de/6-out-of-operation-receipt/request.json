@@ -3,7 +3,7 @@
   "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
   "cbTerminalID": "T1",
   "cbReceiptReference": "OutOfOperation",
-  "cbReceiptMoment": "01/01/1970",
+  "cbReceiptMoment": "1970-01-01T00:00:00.000Z",
   "cbChargeItems": [],
   "cbPayItems": [],
   "ftReceiptCase": 4919338172267102212,

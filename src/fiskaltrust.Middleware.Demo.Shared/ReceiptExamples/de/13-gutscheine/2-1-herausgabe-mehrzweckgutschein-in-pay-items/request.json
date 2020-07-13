@@ -2,7 +2,7 @@
     "ftCashBoxID": "{{cashbox_id}}",
     "cbTerminalID": "D",
     "cbReceiptReference":"RR223",
-    "cbReceiptMoment":"01/01/1970",
+    "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
     "cbChargeItems":[],
     "cbPayItems":[
     	{
@@ -11,14 +11,14 @@
          "Amount":-150.00,
          "ftPayItemCase":4919338167972134925,
          "ftPayItemCaseData":"{\"VoucherNr\":\"UAUA91829182HH\"}",
-         "Moment":"01/01/1970"
+         "Moment":"1970-01-01T00:00:00.000Z"
       },
       {
          "Quantity":1.0,
          "Description":"Cash",
          "Amount":150.00,         
          "ftPayItemCase":4919338167972134913,
-         "Moment":"01/01/1970"
+         "Moment":"1970-01-01T00:00:00.000Z"
       }
     ], 
     "ftReceiptCase":4919338172267102209
