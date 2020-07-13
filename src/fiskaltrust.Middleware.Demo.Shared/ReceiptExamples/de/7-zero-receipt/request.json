@@ -1,0 +1,10 @@
+{
+  "ftCashBoxID": "{{cashbox_id}}",
+  "ftPosSystemId": "b3dc6573-96d9-e611-80f7-5065f38adae1",
+  "cbTerminalID": "1",
+  "cbReceiptReference": "ZeroReceiptAfterFailure",
+  "cbReceiptMoment": "01/01/1970",
+  "cbChargeItems": [],
+  "cbPayItems": [],
+  "ftReceiptCase": 4919338172267102210
+}

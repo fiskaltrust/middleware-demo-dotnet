@@ -1,0 +1,26 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "C",
+    "cbReceiptReference":"123401",
+    "cbReceiptMoment":"2020-06-02T21:00:00.01Z",
+    "cbChargeItems":[
+    	{
+            "Quantity":1.0,
+            "Description":"0.5 Becks",
+            "Amount":5.50,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T21:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"0.3 Afri Cola",
+            "Amount":4.50,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T21:00:00.01Z"
+        }
+    ],
+    "cbPayItems":[], 
+    "ftReceiptCase":4919338172267102224
+}

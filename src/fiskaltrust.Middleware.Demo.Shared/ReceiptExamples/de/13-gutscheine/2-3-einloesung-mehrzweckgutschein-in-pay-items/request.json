@@ -1,0 +1,34 @@
+{
+   "ftCashBoxID":"{{cashbox_id}}",
+   "cbTerminalID":"D",
+   "cbReceiptReference":"RR223",
+   "cbReceiptMoment":"01/01/1970",
+   "cbChargeItems":[
+      {
+         "Quantity":2.0,
+         "Description":"0,5 Soda Zitrone",
+         "Amount":7.00,
+         "VATRate":19.00,
+         "ftChargeItemCase":4919338167972134913,
+         "Moment":"01/01/1970"
+      }
+   ],
+   "cbPayItems":[
+      {
+         "Quantity":1.0,
+         "Description":"Voucher for food and drinks",
+         "Amount":150.00,
+         "ftPayItemCase":4919338167972134925,
+         "ftChargeItemCaseData":"{\"VoucherNr\":\"UAUA91829182HH\"}",
+         "Moment":"01/01/1970"
+      },
+      {
+         "Quantity":1.0,
+         "Description":"Cash",
+         "Amount":-143.00,
+         "ftPayItemCase":4919338167972134913,
+         "Moment":"01/01/1970"
+      }
+   ],
+   "ftReceiptCase":4919338172267102209
+}

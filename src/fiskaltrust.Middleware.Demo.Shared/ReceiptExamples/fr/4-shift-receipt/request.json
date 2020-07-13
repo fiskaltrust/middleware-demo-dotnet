@@ -1,0 +1,9 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "1",
+    "cbReceiptReference": "4",
+    "cbReceiptMoment": "2020-05-02T13:54:25.6769006Z",
+    "cbChargeItems": [],
+    "cbPayItems": [],
+    "ftReceiptCase": 5067112530745229316
+}

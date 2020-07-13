@@ -1,0 +1,42 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "N",
+    "cbReceiptReference":"235501",
+    "cbReceiptMoment":"2020-06-02T23:00:00.01Z",
+    "cbChargeItems":[
+    	{
+            "Quantity":1.0,
+            "Description":"Übernachtung",
+            "Amount":80.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Frühstück",
+            "Amount":20.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Übernachtung",
+            "Amount":80.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Frühstück",
+            "Amount":20.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        }
+    ],
+    "cbPayItems":[], 
+    "ftReceiptCase":4919338172267102224
+}

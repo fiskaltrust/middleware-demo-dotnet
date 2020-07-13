@@ -1,0 +1,12 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
+    "cbTerminalID": "T1",
+    "cbReceiptReference": "ACC-124",
+    "cbReceiptMoment": "2020-06-29T17:41:44.899Z",
+    "cbChargeItems": [],
+    "cbPayItems": [],
+    "ftReceiptCaseData": "",
+    "cbUser": "Astrid",
+    "ftReceiptCase": 4919338167972134931
+}

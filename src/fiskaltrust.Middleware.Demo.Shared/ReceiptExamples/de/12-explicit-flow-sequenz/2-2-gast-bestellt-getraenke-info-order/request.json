@@ -1,0 +1,27 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
+    "cbTerminalID": "T1",
+    "cbReceiptReference": "ACC-124",
+    "cbReceiptMoment": "2020-06-29T17:45:40.505Z",
+    "cbChargeItems": [{
+            "Quantity":1.0,
+            "Description":"Lavazza Gusto Mokka",
+            "Amount":4.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-29T17:45:40.505Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"0,3 Fanta",
+            "Amount":3.50,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-29T17:45:40.505Z"
+        }],
+    "cbPayItems": [],
+    "ftReceiptCaseData": "",
+    "cbUser": "Astrid",
+    "ftReceiptCase": 4919338167972134928
+}

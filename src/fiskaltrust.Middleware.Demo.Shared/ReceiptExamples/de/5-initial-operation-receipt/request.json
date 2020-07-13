@@ -1,0 +1,12 @@
+{
+ "ftCashBoxID": "{{cashbox_id}}",
+ "cbTerminalID": "101",
+ "cbReceiptReference": "INIT",
+ "cbReceiptMoment": "01/01/1970",
+ "cbChargeItems": [],
+ "cbPayItems": [],
+ "ftReceiptCase": 4919338172267102211,
+ "cbUser": "Admin"
+}
+
+
