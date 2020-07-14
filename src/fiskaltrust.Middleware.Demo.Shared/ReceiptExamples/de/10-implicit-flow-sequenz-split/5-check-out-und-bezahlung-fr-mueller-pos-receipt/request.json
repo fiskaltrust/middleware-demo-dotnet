@@ -1,0 +1,59 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "D",
+    "cbReceiptReference":"5671",
+    "cbPreviousReceiptReference":"123401",
+    "cbReceiptMoment":"2020-06-03T09:00:00.01Z",
+    "cbChargeItems":[
+        {
+            "Quantity":1.0,
+            "Description":"Übernachtung",
+            "Amount":80.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-01T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Frühstück",
+            "Amount":20.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-01T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Übernachtung",
+            "Amount":80.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        },
+        {
+            "Quantity":1.0,
+            "Description":"Frühstück",
+            "Amount":20.00,
+            "VATRate":19.00,
+            "ftChargeItemCase":4919338167972134913,
+            "Moment":"2020-06-02T23:00:00.01Z"
+        },
+        {
+            "Quantity":0,
+            "Description":"Start Vorbereitung",
+            "Amount":0,
+            "VATRate":0,
+            "ftChargeItemCase":4919338167972134912,
+            "Moment":"2020-06-01T17:00:00.01Z"
+        }
+    ],
+    "cbPayItems":[
+        {
+            "Quantity":1.0,
+            "Description":"EC Karte",
+            "Amount":200.00,      
+            "ftPayItemCase":4919338167972134916,
+            "Moment":"2020-06-03T09:00:00.01Z"
+        }
+    ], 
+    "ftReceiptCase":4919338172267102209
+}

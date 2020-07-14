@@ -1,0 +1,32 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "1",
+    "cbReceiptReference": "12",
+    "cbReceiptMoment": "2020-05-02T13:57:48.4151441Z",
+    "cbChargeItems": [],
+    "cbPayItems": [
+        {
+            "Quantity": 1.0,
+            "Description": "Cash",
+            "Amount": 58.16,
+            "ftPayItemCase": 5067112530745229313,
+            "ftPayItemCaseData": "",
+            "AccountNumber": "",
+            "CostCenter": "",
+            "MoneyGroup": "",
+            "MoneyNumber": ""
+        },
+        {
+            "Quantity": 1.0,
+            "Description": "Payment compensation",
+            "Amount": -58.16,
+            "ftPayItemCase": 5067112530745229329,
+            "ftPayItemCaseData": "",
+            "AccountNumber": "",
+            "CostCenter": "",
+            "MoneyGroup": "",
+            "MoneyNumber": ""
+        }
+    ],
+    "ftReceiptCase": 5067112530745229323
+}

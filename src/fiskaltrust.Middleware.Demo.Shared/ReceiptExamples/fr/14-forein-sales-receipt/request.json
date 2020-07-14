@@ -1,0 +1,50 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "1",
+    "cbReceiptReference": "15",
+    "cbReceiptMoment": "2020-05-02T13:58:25.0873238Z",
+    "cbChargeItems": [
+        {
+            "Quantity": 1.0,
+            "Description": "Article 1",
+            "Amount": 44.86,
+            "VATRate": 20.0,
+            "ftChargeItemCase": 5067112530745229313,
+            "ftChargeItemCaseData": "",
+            "AccountNumber": "",
+            "CostCenter": "",
+            "ProductGroup": "",
+            "ProductNumber": "1",
+            "ProductBarcode": "",
+            "Unit": ""
+        },
+        {
+            "Quantity": 1.0,
+            "Description": "Article 2",
+            "Amount": 57.52,
+            "VATRate": 20.0,
+            "ftChargeItemCase": 5067112530745229313,
+            "ftChargeItemCaseData": "",
+            "AccountNumber": "",
+            "CostCenter": "",
+            "ProductGroup": "",
+            "ProductNumber": "2",
+            "ProductBarcode": "",
+            "Unit": ""
+        }
+    ],
+    "cbPayItems": [
+        {
+            "Quantity": 1.0,
+            "Description": "Payment compensation",
+            "Amount": 102.38,
+            "ftPayItemCase": 5067112530745229329,
+            "ftPayItemCaseData": "",
+            "AccountNumber": "",
+            "CostCenter": "",
+            "MoneyGroup": "",
+            "MoneyNumber": ""
+        }
+    ],
+    "ftReceiptCase": 5067112530745229326
+}

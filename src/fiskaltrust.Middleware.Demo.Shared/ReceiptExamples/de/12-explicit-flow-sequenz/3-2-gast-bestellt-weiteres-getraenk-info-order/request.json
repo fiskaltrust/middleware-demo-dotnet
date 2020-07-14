@@ -1,0 +1,20 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "ftPosSystemId": "d4a62055-ca6c-4372-ae4d-f835a88e4a5d",
+    "cbTerminalID": "T1",
+    "cbReceiptReference": "ACC-124",
+    "cbReceiptMoment": "2020-06-29T17:55:20.705Z",
+    "cbChargeItems": [
+        {
+            "Quantity": 1,
+            "Description": "0,3 Fanta",
+            "Amount": 3.5,
+            "VATRate": 19,
+            "ftChargeItemCase": 4919338167972134913,
+            "Moment": "2020-06-29T17:55:20.705Z"
+        }],
+    "cbPayItems": [],
+    "ftReceiptCaseData": "",
+    "cbUser": "Astrid",
+    "ftReceiptCase": 4919338167972134928
+}

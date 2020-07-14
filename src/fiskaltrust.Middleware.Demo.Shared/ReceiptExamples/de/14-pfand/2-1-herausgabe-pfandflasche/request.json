@@ -1,0 +1,32 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "T1",
+    "cbReceiptReference":"RR223",
+    "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
+    "cbChargeItems":[
+    	{
+         "Quantity":1.0,
+         "Description":"Bergbauern Milch",
+         "Amount":2.00,
+         "VATRate":7.00,
+         "ftChargeItemCase":4919338167972135009
+    	},
+        {
+         "Quantity":1.0,
+         "Description":"Pfandflasche",
+         "Amount":0.40,
+         "VATRate":7.00,
+         "ftChargeItemCase":4919338167972134946
+    	}
+    ],
+    "cbPayItems":[
+        {
+            "Quantity":1.0,
+            "Description":"Cash",
+            "Amount":2.40,      
+            "ftPayItemCase":4919338167972134913,
+            "Moment":"1970-01-01T00:00:00.000Z"
+        }
+    ], 
+    "ftReceiptCase":4919338172267102209
+}

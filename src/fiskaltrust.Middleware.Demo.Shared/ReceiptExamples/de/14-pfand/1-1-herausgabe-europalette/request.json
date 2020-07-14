@@ -1,0 +1,32 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "T1",
+    "cbReceiptReference":"RR223",
+    "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
+    "cbChargeItems":[
+    	{
+         "Quantity":200.0,
+         "Description":"Toni Box",
+         "Amount":3000.00,
+         "VATRate":19.00,
+         "ftChargeItemCase":4919338167972135009
+    	},
+        {
+         "Quantity":1.0,
+         "Description":"Euro Palette",
+         "Amount":20.00,
+         "VATRate":7.00,
+         "ftChargeItemCase":4919338167972134946
+    	}
+    ],
+    "cbPayItems":[
+        {
+            "Quantity":1.0,
+            "Description":"Cash",
+            "Amount":3020.00,      
+            "ftPayItemCase":4919338167972134913,
+            "Moment":"1970-01-01T00:00:00.000Z"
+        }
+    ], 
+    "ftReceiptCase":4919338172267102209
+}

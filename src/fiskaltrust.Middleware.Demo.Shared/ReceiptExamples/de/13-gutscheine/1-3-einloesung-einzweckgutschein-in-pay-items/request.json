@@ -1,0 +1,27 @@
+{
+   "ftCashBoxID":"{{cashbox_id}}",
+   "cbTerminalID":"D",
+   "cbReceiptReference":"RR223",
+   "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
+   "cbChargeItems":[
+      {
+         "Quantity":1.0,
+         "Description":"RX234 MP3 Player",
+         "Amount":15.00,
+         "VATRate":19.00,
+         "ftChargeItemCase":4919338167972134929,
+         "Moment":"1970-01-01T00:00:00.000Z"
+      }
+   ],
+   "cbPayItems":[
+      {
+         "Quantity":1.0,
+         "Description":"Voucher for RX234 MP3 Player",
+         "Amount":15.00,
+         "ftPayItemCase":4919338167972134922,
+         "ftPayItemCaseData":"{\"VoucherNr\":\"UAUA91829182HH\"}",
+         "Moment":"1970-01-01T00:00:00.000Z"
+      }
+   ],
+   "ftReceiptCase":4919338172267102209
+}

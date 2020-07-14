@@ -1,0 +1,45 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "ftPosSystemId": "b3dc6573-96d9-e611-80f7-5065f38adae1",
+    "cbTerminalID": "1",
+    "cbReceiptReference": "TR-2992",
+    "cbReceiptMoment": "1970-01-01T00:00:00.000Z",
+    "cbChargeItems": [
+        {
+            "Quantity": 1.0,
+            "Description": "Bier 0,5 lt",
+            "Amount": 3.80,
+            "VATRate": 19.00,
+            "ftChargeItemCase": 4919338167972134913,
+            "ftChargeItemCaseData": "",
+            "VATAmount": 0.6067226890756302521008403361,
+            "CostCenter": "1",
+            "ProductGroup": "Bier",
+            "ProductNumber": "101",
+            "ProductBarcode": "",
+            "Unit": "Liter",
+            "UnitQuantity": 1.0,
+            "Moment":"1970-01-01T00:00:00.000Z"
+        },
+        {
+            "Quantity": 1.0,
+            "Description": "Schnitzel",
+            "Amount": 9.20,
+            "VATRate": 7.00,
+            "ftChargeItemCase": 4919338167972134914,
+            "ftChargeItemCaseData": "",
+            "VATAmount": 0.601869158878504672897196262,
+            "CostCenter": "1",
+            "ProductGroup": "Speisen",
+            "ProductNumber": "102",
+            "ProductBarcode": "",
+            "Unit": "Stk",
+            "UnitQuantity": 1.0,
+            "Moment":"1970-01-01T00:00:00.000Z"
+        }
+    ],
+    "cbPayItems": [],
+    "ftReceiptCase": 4919338172267102224,
+    "cbReceiptAmount": 13.00,
+    "cbUser": "Astrid"
+}

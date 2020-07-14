@@ -1,0 +1,25 @@
+{
+    "ftCashBoxID": "{{cashbox_id}}",
+    "cbTerminalID": "T1",
+    "cbReceiptReference":"RR223",
+    "cbReceiptMoment":"1970-01-01T00:00:00.000Z",
+    "cbChargeItems":[
+        {
+         "Quantity":1.0,
+         "Description":"Euro Palette",
+         "Amount":-20.00,
+         "VATRate":7.00,
+         "ftChargeItemCase":4919338167972134954
+    	}
+    ],
+    "cbPayItems":[
+        {
+            "Quantity":1.0,
+            "Description":"Cash",
+            "Amount":-20.00,      
+            "ftPayItemCase":4919338167972134913,
+            "Moment":"1970-01-01T00:00:00.000Z"
+        }
+    ], 
+    "ftReceiptCase":4919338172267102209
+}
