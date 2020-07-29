@@ -27,7 +27,8 @@ namespace fiskaltrust.Middleware.Demo.Http
                 CommunicationType = communicationType, 
                 CashboxId = cashboxId, 
                 AccessToken = accessToken,
-                RetryPolicyOptions = retryOptions
+                RetryPolicyOptions = retryOptions,
+                UseUnversionedLegacyUrls = true
             }).Result;
             _examples = LoadExamples(receiptExampleDirectory, cashboxId);
 
