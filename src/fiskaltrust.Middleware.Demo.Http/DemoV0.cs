@@ -94,7 +94,7 @@ namespace fiskaltrust.Middleware.Demo.Http
             }
             else
             {
-                var journal = GetJournal(inputInt);
+                var journal = GetJournal(inputInt - 1);
                 var result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
                 Console.WriteLine(result);
                 Console.WriteLine("Please press enter to continue.");
@@ -104,7 +104,7 @@ namespace fiskaltrust.Middleware.Demo.Http
 
         private static string GetJournal(int inputInt)
         {
-            using var streamReader = new StreamReader(_pos.Journal(inputInt, 0, int.MaxValue));
+            using var streamReader = new StreamReader(_pos.Journal(inputInt, 0, long.MaxValue));
             return streamReader.ReadToEnd();
         }
 

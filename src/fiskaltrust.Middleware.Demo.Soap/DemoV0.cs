@@ -79,13 +79,13 @@ namespace fiskaltrust.Middleware.Demo.Soap
         private static void ExecuteJournal(string input)
         {
             Console.Clear();
-            if (!int.TryParse(input, out var inputInt) || inputInt > 4)
+            if (!long.TryParse(input, out var inputInt) || inputInt > 4)
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
             else
             {
-                var journal = GetJournal(inputInt);
+                var journal = GetJournal(inputInt - 1);
                 var result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
                 Console.WriteLine(result);
                 Console.WriteLine("Please press enter to continue.");
@@ -93,9 +93,9 @@ namespace fiskaltrust.Middleware.Demo.Soap
             }
         }
 
-        private static string GetJournal(int inputInt)
+        private static string GetJournal(long inputInt)
         {
-            using var streamReader = new StreamReader(_pos.Journal(inputInt, 0, int.MaxValue));
+            using var streamReader = new StreamReader(_pos.Journal(inputInt, 0, long.MaxValue));
             return streamReader.ReadToEnd();
         }
 
