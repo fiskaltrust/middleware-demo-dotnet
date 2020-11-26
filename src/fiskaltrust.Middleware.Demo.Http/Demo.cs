@@ -132,18 +132,24 @@ namespace fiskaltrust.Middleware.Demo.Http
                         }
                         break;
                     case 9:
-                        var fileName = await SaveJournalToFileAsync(0x4445000000000001);
+                        var fileName = await SaveJournalToFileAsync(0x4445000000000001, $"export_{DateTime.Now.Ticks}.tar");
                         if (!string.IsNullOrEmpty(fileName))
                         {
-                            Console.WriteLine($"Successfully exported TAR file to -> {fileName}");
+                            Console.WriteLine($"Successfully exported TSE-based TAR file to -> {fileName}");
                         }
                         break;
                     case 10:
-                        journal = await GetJournalAsync(0xFF);
-                        if (!string.IsNullOrEmpty(journal))
+                        fileName = await SaveJournalToFileAsync(0x4445000000000002, $"export_{DateTime.Now.Ticks}.zip");
+                        if (!string.IsNullOrEmpty(fileName))
                         {
-                            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<dynamic>(journal), Formatting.Indented);
-                            Console.WriteLine(result);
+                            Console.WriteLine($"Successfully exported DSFinV-K file to -> {fileName}");
+                        }
+                        break;
+                    case 11:
+                        fileName = await SaveJournalToFileAsync(0x4445000000000003, $"export_{DateTime.Now.Ticks}.tar");
+                        if (!string.IsNullOrEmpty(fileName))
+                        {
+                            Console.WriteLine($"Successfully exported database-based TAR file to -> {fileName}");
                         }
                         break;
                 }
@@ -177,15 +183,15 @@ namespace fiskaltrust.Middleware.Demo.Http
             }
         }
 
-        private static async Task<string> SaveJournalToFileAsync(long inputInt)
+        private static async Task<string> SaveJournalToFileAsync(long inputInt, string fileName)
         {
             try
             {
-                var fileName = $"exportTSE_{DateTime.Now.Ticks}.tar";
                 using var fileStream = File.OpenWrite(fileName);
                 await foreach (var chunk in _pos.JournalAsync(new JournalRequest
                 {
-                    ftJournalType = inputInt
+                    ftJournalType = inputInt,
+                    MaxChunkSize = 1024 * 100
                 }))
                 {
                     var write = chunk.Chunk.ToArray();
@@ -226,7 +232,9 @@ namespace fiskaltrust.Middleware.Demo.Http
                 Console.WriteLine($"<6>: Journal 0x0000000000004445 JournalDE in internal format");
                 Console.WriteLine($"<7>: Journal 0x0000000000004652 JournalFR in internal format");
                 Console.WriteLine($"<8>: Journal 0x4445000000000000 QueueDE Status");
-                Console.WriteLine($"<9>: Journal 0x4445000000000001 TSE-TAR File export (Creates file with contents at {Directory.GetCurrentDirectory()})");
+                Console.WriteLine($"<9>: Journal 0x4445000000000001 TSE-TAR file export (Creates file with contents at {Directory.GetCurrentDirectory()})");
+                Console.WriteLine($"<10>: Journal 0x4445000000000002 DSFinV-K export (Creates file with contents at {Directory.GetCurrentDirectory()})");
+                Console.WriteLine($"<11>: Journal 0x4445000000000003 Database TAR file export (Creates file with contents at {Directory.GetCurrentDirectory()})");
                 await ExecuteJournalAsync(Console.ReadLine());
             }
             else
