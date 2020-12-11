@@ -85,7 +85,7 @@ namespace fiskaltrust.Middleware.Demo.Soap
         private static async Task ExecuteJournalAsync(string input)
         {
             Console.Clear();
-            if (!int.TryParse(input, out var inputInt) || inputInt > 10)
+            if (!int.TryParse(input, out var inputInt) || inputInt > 11)
             {
                 Console.WriteLine($"\"{input}\" is not a valid input.");
             }
