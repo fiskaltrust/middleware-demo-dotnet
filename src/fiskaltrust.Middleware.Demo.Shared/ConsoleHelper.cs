@@ -7,6 +7,10 @@ namespace fiskaltrust.Middleware.Demo.Shared
 {
     public static class ConsoleHelper
     {
+        private const long FLAG_PRINTING_OPTIONAL = 0x0000000000010000;
+        private const long SIGNATURE_FORMAT_TEXT = 0x01;
+        private const long SIGNATURE_FORMAT_QR = 0x03;
+
         public static T ReadFromConsole<T>(string label, bool printType = true)
         {
             while (true)
@@ -41,18 +45,25 @@ namespace fiskaltrust.Middleware.Demo.Shared
                 Console.WriteLine("{0:G} ReceiptResponse:", DateTime.Now);
                 Console.WriteLine(JsonConvert.SerializeObject(response, Formatting.Indented));
                 Console.WriteLine("========== n: {0} CashBoxIdentificateion:{1} ReceiptIdentification:{2} ==========", response.cbReceiptReference, response.ftCashBoxIdentification, response.ftReceiptIdentification);
-                foreach (var item in response.ftSignatures.Where(x => x.ftSignatureFormat != 0x03))
+                foreach (var item in response.ftSignatures.Where(x => !x.ftSignatureFormat.HasFlag(FLAG_PRINTING_OPTIONAL)))
                 {
-                    Console.WriteLine("{0}:{1}", item.Caption, item.Data);
-                }
-                foreach (var item in response.ftSignatures.Where(x => x.ftSignatureFormat == 0x03))
-                {
-                    QrCodeHelper.PrintQrCode(item.Data);
+                    switch (item.ftSignatureFormat & 0xFF)
+                    {
+                        case SIGNATURE_FORMAT_QR:
+                            QrCodeHelper.PrintQrCode(item.Data);
+                            break;
+                        case SIGNATURE_FORMAT_TEXT:
+                            Console.WriteLine("{0}:{1}", item.Caption, item.Data);
+                            break;
+                        default:
+                            // For demo purposes, we ignore other formats. In production applications, these should be covered.
+                            break;
+                    }
                 }
             }
             else
             {
-                Console.WriteLine("null-result!!!");
+                Console.Error.WriteLine("Empty response received.");
             }
         }
 
@@ -80,7 +91,7 @@ namespace fiskaltrust.Middleware.Demo.Shared
             }
             else
             {
-                Console.WriteLine("null-result!!!");
+                Console.Error.WriteLine("Empty response received.");
             }
         }
     }
